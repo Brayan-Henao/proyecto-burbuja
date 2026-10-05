@@ -1,0 +1,42 @@
+# ==============================
+# Backend - Python
+# ==============================
+
+Backend/venv/
+Backend/__pycache__/
+Backend/**/*.pyc
+Backend/.env
+Backend/instance/
+Backend/.pytest_cache/
+
+# Archivos subidos por usuarios
+Backend/uploads/
+
+
+# ==============================
+# Frontend - Node / React
+# ==============================
+
+Frontend/node_modules/
+Frontend/dist/
+Frontend/.env
+Frontend/.env.local
+Frontend/.env.development.local
+Frontend/.env.test.local
+Frontend/.env.production.local
+
+
+# ==============================
+# Sistema operativo
+# ==============================
+
+.DS_Store
+Thumbs.db
+
+
+# ==============================
+# Editores
+# ==============================
+
+.vscode/
+.idea/

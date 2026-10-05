@@ -1,0 +1,94 @@
+.por-que-burbuja {
+  padding: 110px 32px;
+
+  background-color: #f5faff;
+}
+
+.por-que-header {
+  max-width: 1400px;
+  margin: 0 auto 70px;
+}
+
+.por-que-header p {
+  margin: 0 0 14px;
+
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: 600;
+
+  color: #247dbc;
+}
+
+.por-que-header h2 {
+  margin: 0;
+
+  font-family: Georgia, serif;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.15;
+  font-weight: 400;
+
+  color: #1f2933;
+}
+
+.razones-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1px;
+
+  background-color: #dcecf5;
+}
+
+.razon-card {
+  padding: 45px 40px;
+
+  background-color: #f5faff;
+}
+
+.razon-card > span {
+  display: block;
+  margin-bottom: 45px;
+
+  font-size: 13px;
+  letter-spacing: 2px;
+
+  color: #247dbc;
+}
+
+.razon-card h3 {
+  margin: 0 0 16px;
+
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+
+  color: #1f2933;
+}
+
+.razon-card p {
+  margin: 0;
+
+  max-width: 350px;
+
+  font-size: 15px;
+  line-height: 1.7;
+
+  color: #66727d;
+}
+
+@media (max-width: 800px) {
+  .por-que-burbuja {
+    padding: 80px 20px;
+  }
+
+  .razones-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .razon-card {
+    padding: 35px 25px;
+  }
+}

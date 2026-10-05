@@ -1,0 +1,70 @@
+.personalizacion-cta {
+  padding: 120px 32px;
+
+  background-color: #ffffff;
+
+  text-align: center;
+}
+
+.personalizacion-content {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.personalizacion-content > p:first-child {
+  margin: 0 0 16px;
+
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: 600;
+
+  color: #247dbc;
+}
+
+.personalizacion-content h2 {
+  margin: 0;
+
+  font-family: Georgia, serif;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.1;
+  font-weight: 400;
+
+  color: #1f2933;
+}
+
+.personalizacion-texto {
+  max-width: 560px;
+  margin: 28px auto 35px;
+
+  font-size: 16px;
+  line-height: 1.7;
+
+  color: #66727d;
+}
+
+.personalizacion-button {
+  display: inline-block;
+
+  padding: 15px 32px;
+
+  background-color: #247dbc;
+  color: #ffffff;
+
+  font-size: 14px;
+  letter-spacing: 0.5px;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.personalizacion-button:hover {
+  background-color: #1e88cc;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .personalizacion-cta {
+    padding: 85px 20px;
+  }
+}

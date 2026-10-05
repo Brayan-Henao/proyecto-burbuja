@@ -1,16 +1,60 @@
-# React + Vite
+# Burbuja - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend de la plataforma web de **Burbuja**, un negocio dedicado a la venta de regalos personalizados.
 
-Currently, two official plugins are available:
+Este proyecto corresponde a la interfaz de usuario desarrollada con React y Vite, conectada al backend mediante una API REST desarrollada con Flask.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tecnologías
 
-## React Compiler
+- React
+- Vite
+- JavaScript
+- HTML5
+- CSS3
+- React Router
+- Fetch API
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Funcionalidades actuales
 
-## Expanding the ESLint configuration
+- Página de inicio de Burbuja.
+- Navegación entre las diferentes secciones de la tienda.
+- Visualización de productos obtenidos desde la API.
+- Página de detalle de cada producto.
+- Visualización de información, precio y disponibilidad.
+- Personalización de productos.
+- Ingreso de texto para grabados.
+- Ingreso de mensajes para tarjetas.
+- Selección de fotografías para personalización.
+- Vista previa de la fotografía seleccionada.
+- Envío de fotografías al backend.
+- Integración con el módulo de personalizaciones del backend.
+- Diseño responsive para diferentes tamaños de pantalla.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Estructura principal
+
+```text
+src/
+├── components/
+│   ├── Categorias.jsx
+│   ├── Footer.jsx
+│   ├── Header.jsx
+│   ├── Hero.jsx
+│   ├── PersonalizacionCTA.jsx
+│   ├── PorQueBurbuja.jsx
+│   ├── ProductoDetalle.jsx
+│   └── ProductosDestacados.jsx
+│
+├── services/
+│   ├── personalizacionesService.js
+│   └── productosService.js
+│
+├── App.jsx
+├── main.jsx
+├── App.css
+└── index.css
+
+public/
+└── videos/
+    ├── video1.mp4
+    ├── video2.mp4
+    └── video3.mp4

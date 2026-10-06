@@ -11,6 +11,12 @@ class Personalizacion(db.Model):
         primary_key=True
     )
 
+    usuario_id = db.Column(
+        db.Integer,
+        db.ForeignKey("usuarios.id"),
+        nullable=False
+    )
+
     producto_id = db.Column(
         db.Integer,
         db.ForeignKey("productos.id"),

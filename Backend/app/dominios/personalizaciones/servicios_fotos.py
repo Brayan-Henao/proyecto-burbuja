@@ -30,6 +30,7 @@ class FotoPersonalizacionServicio:
 
     def agregar_foto(
         self,
+        usuario_id,
         personalizacion_id,
         archivo
     ):
@@ -42,6 +43,12 @@ class FotoPersonalizacionServicio:
 
             raise ValueError(
                 "La personalización no existe."
+            )
+
+        if personalizacion.usuario_id != usuario_id:
+
+            raise PermissionError(
+                "No tienes permiso para acceder a esta personalización."
             )
 
         if not archivo:
@@ -152,6 +159,7 @@ class FotoPersonalizacionServicio:
 
     def eliminar_foto(
         self,
+        usuario_id,
         foto_id
     ):
 
@@ -163,6 +171,22 @@ class FotoPersonalizacionServicio:
 
             raise FotoPersonalizacionNoEncontradaError(
                 "Foto de personalización no encontrada."
+            )
+
+        personalizacion = Personalizacion.query.get(
+            foto.personalizacion_id
+        )
+
+        if not personalizacion:
+
+            raise ValueError(
+                "La personalización de la foto no existe."
+            )
+
+        if personalizacion.usuario_id != usuario_id:
+
+            raise PermissionError(
+                "No tienes permiso para eliminar esta foto."
             )
 
         nombre_archivo = os.path.basename(

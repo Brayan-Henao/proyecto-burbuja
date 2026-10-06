@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify
 from marshmallow import ValidationError
 
+from app.seguridad import token_requerido
+
 from app.dominios.personalizaciones.dtos import (
     CrearPersonalizacionDTO,
     ActualizarPersonalizacionDTO,
@@ -35,7 +37,8 @@ foto_personalizacion_servicio = (
     "",
     methods=["POST"]
 )
-def crear_personalizacion():
+@token_requerido
+def crear_personalizacion(usuario_id):
 
     datos = request.get_json(silent=True) or {}
 
@@ -59,6 +62,7 @@ def crear_personalizacion():
 
         personalizacion = (
             personalizacion_servicio.crear_personalizacion(
+                usuario_id,
                 datos_validados
             )
         )
@@ -77,6 +81,7 @@ def crear_personalizacion():
         "message": "Personalización creada con éxito.",
         "data": {
             "id": personalizacion.id,
+            "usuario_id": personalizacion.usuario_id,
             "producto_id": personalizacion.producto_id,
             "grabado": personalizacion.grabado,
             "mensaje": personalizacion.mensaje,
@@ -93,12 +98,17 @@ def crear_personalizacion():
     "/<int:personalizacion_id>",
     methods=["GET"]
 )
-def obtener_personalizacion(personalizacion_id):
+@token_requerido
+def obtener_personalizacion(
+    personalizacion_id,
+    usuario_id
+):
 
     try:
 
         personalizacion = (
             personalizacion_servicio.obtener_personalizacion(
+                usuario_id,
                 personalizacion_id
             )
         )
@@ -112,11 +122,21 @@ def obtener_personalizacion(personalizacion_id):
             }
         }), 404
 
+    except PermissionError as err:
+
+        return jsonify({
+            "success": False,
+            "error": {
+                "message": str(err)
+            }
+        }), 403
+
     return jsonify({
         "success": True,
         "message": "Personalización encontrada.",
         "data": {
             "id": personalizacion.id,
+            "usuario_id": personalizacion.usuario_id,
             "producto_id": personalizacion.producto_id,
             "grabado": personalizacion.grabado,
             "mensaje": personalizacion.mensaje,
@@ -150,7 +170,11 @@ def obtener_personalizacion(personalizacion_id):
     "/<int:personalizacion_id>",
     methods=["PUT"]
 )
-def actualizar_personalizacion(personalizacion_id):
+@token_requerido
+def actualizar_personalizacion(
+    personalizacion_id,
+    usuario_id
+):
 
     datos = request.get_json(silent=True) or {}
 
@@ -174,6 +198,7 @@ def actualizar_personalizacion(personalizacion_id):
 
         personalizacion = (
             personalizacion_servicio.actualizar_personalizacion(
+                usuario_id,
                 personalizacion_id,
                 datos_validados
             )
@@ -187,6 +212,15 @@ def actualizar_personalizacion(personalizacion_id):
                 "message": str(err)
             }
         }), 404
+
+    except PermissionError as err:
+
+        return jsonify({
+            "success": False,
+            "error": {
+                "message": str(err)
+            }
+        }), 403
 
     except ValueError as err:
 
@@ -202,6 +236,7 @@ def actualizar_personalizacion(personalizacion_id):
         "message": "Personalización actualizada con éxito.",
         "data": {
             "id": personalizacion.id,
+            "usuario_id": personalizacion.usuario_id,
             "producto_id": personalizacion.producto_id,
             "grabado": personalizacion.grabado,
             "mensaje": personalizacion.mensaje
@@ -213,11 +248,16 @@ def actualizar_personalizacion(personalizacion_id):
     "/<int:personalizacion_id>",
     methods=["DELETE"]
 )
-def eliminar_personalizacion(personalizacion_id):
+@token_requerido
+def eliminar_personalizacion(
+    personalizacion_id,
+    usuario_id
+):
 
     try:
 
         personalizacion_servicio.eliminar_personalizacion(
+            usuario_id,
             personalizacion_id
         )
 
@@ -230,6 +270,15 @@ def eliminar_personalizacion(personalizacion_id):
             }
         }), 404
 
+    except PermissionError as err:
+
+        return jsonify({
+            "success": False,
+            "error": {
+                "message": str(err)
+            }
+        }), 403
+
     return jsonify({
         "success": True,
         "message": "Personalización eliminada con éxito."
@@ -240,7 +289,11 @@ def eliminar_personalizacion(personalizacion_id):
     "/<int:personalizacion_id>/fotos",
     methods=["POST"]
 )
-def agregar_foto(personalizacion_id):
+@token_requerido
+def agregar_foto(
+    personalizacion_id,
+    usuario_id
+):
 
     archivo = request.files.get(
         "imagen"
@@ -250,6 +303,7 @@ def agregar_foto(personalizacion_id):
 
         foto = (
             foto_personalizacion_servicio.agregar_foto(
+                usuario_id,
                 personalizacion_id,
                 archivo
             )
@@ -263,6 +317,15 @@ def agregar_foto(personalizacion_id):
                 "message": str(err)
             }
         }), 400
+
+    except PermissionError as err:
+
+        return jsonify({
+            "success": False,
+            "error": {
+                "message": str(err)
+            }
+        }), 403
 
     return jsonify({
         "success": True,
@@ -284,11 +347,16 @@ def agregar_foto(personalizacion_id):
     "/fotos/<int:foto_id>",
     methods=["DELETE"]
 )
-def eliminar_foto(foto_id):
+@token_requerido
+def eliminar_foto(
+    foto_id,
+    usuario_id
+):
 
     try:
 
         foto_personalizacion_servicio.eliminar_foto(
+            usuario_id,
             foto_id
         )
 
@@ -300,6 +368,15 @@ def eliminar_foto(foto_id):
                 "message": str(err)
             }
         }), 404
+
+    except PermissionError as err:
+
+        return jsonify({
+            "success": False,
+            "error": {
+                "message": str(err)
+            }
+        }), 403
 
     return jsonify({
         "success": True,
@@ -314,7 +391,11 @@ def eliminar_foto(foto_id):
     "/<int:personalizacion_id>/opciones",
     methods=["POST"]
 )
-def agregar_opcion(personalizacion_id):
+@token_requerido
+def agregar_opcion(
+    personalizacion_id,
+    usuario_id
+):
 
     datos = request.get_json(silent=True) or {}
 
@@ -337,6 +418,7 @@ def agregar_opcion(personalizacion_id):
     try:
 
         opcion = personalizacion_servicio.agregar_opcion(
+            usuario_id,
             personalizacion_id,
             datos_validados
         )
@@ -349,6 +431,15 @@ def agregar_opcion(personalizacion_id):
                 "message": str(err)
             }
         }), 404
+
+    except PermissionError as err:
+
+        return jsonify({
+            "success": False,
+            "error": {
+                "message": str(err)
+            }
+        }), 403
 
     except ValueError as err:
 
